@@ -1,11 +1,28 @@
-import './App.css';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Home from "./pages/Home";
+import CampaignManager from "./pages/CampaignManager";
+import Footer from "./components/Footer";
+import Preloader from "./components/Preloader";
+import React, { useState, useEffect } from "react";
 
 function App() {
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    setTimeout(() => setLoading(false), 1200);
+  }, []);
+  if (loading) return <Preloader />;
   return (
-    <div className='flex justify-center w-full'>
-        <p className="text-red-400">test</p>
-    </div>
-    
+    <Router>
+      <Navbar />
+      <div className="flex-grow">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/campaignManager" element={<CampaignManager />} />
+        </Routes>
+      </div>
+      <Footer />
+    </Router>
   );
 }
 
