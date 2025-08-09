@@ -408,7 +408,7 @@ const WorkspacePage = () => {
 
                 <div className="mt-6 pt-4 border-t border-gray-200">
                   <Link
-                    to={`/workspaces/${workspace.id}`}
+                    to={`/workspace/${workspace.id}`}
                     className="w-full bg-gray-100 text-gray-700 py-2 px-4 rounded-lg hover:bg-gray-200 transition-colors text-sm font-medium block text-center"
                   >
                     Mở workspace
