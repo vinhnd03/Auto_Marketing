@@ -19,7 +19,7 @@ export default function Home() {
           <div>
             <h1 className="text-4xl sm:text-5xl font-extrabold leading-tight mb-6 text-gray-900">
               Giải pháp{" "}
-              <span className="bg-gradient-to-r from-blue-600 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">
                 AutoMarketing
               </span>{" "}
               cho doanh nghiệp hiện đại
