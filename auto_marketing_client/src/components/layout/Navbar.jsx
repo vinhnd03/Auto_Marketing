@@ -184,7 +184,7 @@ export default function Navbar() {
                   Đăng nhập
                 </Link>
                 <Link
-                  to="/signup"
+                  to="/register"
                   className="px-6 py-2 text-sm font-medium text-white rounded bg-gradient-to-r from-blue-500 to-purple-600 shadow-md hover:shadow-lg hover:scale-105 transition-all duration-200"
                 >
                   Đăng ký ngay

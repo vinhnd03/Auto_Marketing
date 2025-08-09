@@ -1,17 +1,48 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from "react-router-dom";
 import React, { useState, useEffect } from "react";
+import { Toaster } from "react-hot-toast";
 
 // Import components and pages using new structure
 import { Navbar, Footer, Preloader } from "./components";
 
 import {
   Home,
+  LoginPage,
+  RegisterPage,
+  ResetPasswordPage,
   CampaignManager,
   Profile,
   Settings,
   WorkspacePage,
   WorkspaceDetailPage,
 } from "./pages";
+
+import { TermsPage, PrivacyPage } from "./pages/legal";
+
+// Component để xác định có hiển thị Navbar/Footer không
+const AppLayout = ({ children }) => {
+  const location = useLocation();
+  const isAuthPage = [
+    "/login",
+    "/register",
+    "/reset-password",
+    "/terms",
+    "/privacy",
+  ].includes(location.pathname);
+
+  return (
+    <>
+      {!isAuthPage && <Navbar />}
+      <div className={!isAuthPage ? "flex-grow" : ""}>{children}</div>
+      {!isAuthPage && <Footer />}
+    </>
+  );
+};
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -21,25 +52,54 @@ function App() {
   if (loading) return <Preloader />;
   return (
     <Router>
-      <Navbar />
-      <div className="flex-grow">
+      <AppLayout>
         <Routes>
           <Route path="/" element={<Home />} />
+
+          {/* Auth Routes */}
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/reset-password" element={<ResetPasswordPage />} />
+
+          {/* Legal Routes */}
+          <Route path="/terms" element={<TermsPage />} />
+          <Route path="/privacy" element={<PrivacyPage />} />
+
+          {/* Application Routes */}
           <Route path="/campaign-manager" element={<CampaignManager />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/workspace" element={<WorkspacePage />} />
           <Route
-            path="/workspace/:workspaceId"
-            element={<WorkspaceDetailPage />}
-          />
-          <Route
-            path="/dashboard/workspaces/:workspaceId"
+            path="/workspaces/:workspaceId"
             element={<WorkspaceDetailPage />}
           />
         </Routes>
-      </div>
-      <Footer />
+      </AppLayout>
+      <Toaster
+        position="top-right"
+        toastOptions={{
+          duration: 4000,
+          style: {
+            background: "#363636",
+            color: "#fff",
+          },
+          success: {
+            duration: 3000,
+            style: {
+              background: "#10B981",
+              color: "#fff",
+            },
+          },
+          error: {
+            duration: 4000,
+            style: {
+              background: "#EF4444",
+              color: "#fff",
+            },
+          },
+        }}
+      />
     </Router>
   );
 }
