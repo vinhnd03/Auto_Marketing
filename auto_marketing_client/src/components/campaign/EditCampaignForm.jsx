@@ -16,19 +16,21 @@ export default function EditCampaignForm({ initialData, onSubmit, onCancel }) {
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       {/* Header */}
-      <div className="border-b pb-3 mb-4">
-        <h2 className="flex items-center text-lg font-semibold text-gray-800">
-          <Edit3 size={20} className="mr-2 text-blue-500" />
-          Chỉnh sửa chiến dịch
-        </h2>
-        <p className="text-sm text-gray-500">
+      <div className="pb-4 mb-6">
+        <div className="flex items-center gap-2 mb-2">
+          <Edit3 size={20} className="text-blue-500" />
+          <h2 className="text-xl font-semibold text-gray-800">
+            Chỉnh sửa chiến dịch
+          </h2>
+        </div>
+        <p className="text-sm text-gray-600">
           Cập nhật thông tin chiến dịch và lưu thay đổi.
         </p>
       </div>
 
       {/* Tên chiến dịch */}
       <div>
-        <label className="flex items-center text-sm font-medium text-gray-700 mb-2">
+        <label className="flex items-center text-sm font-medium text-gray-700 mb-3">
           <Type size={16} className="mr-2 text-blue-500" />
           Tên chiến dịch <span className="text-red-500">*</span>
         </label>
@@ -39,13 +41,13 @@ export default function EditCampaignForm({ initialData, onSubmit, onCancel }) {
           onChange={handleChange}
           required
           placeholder="Nhập tên chiến dịch..."
-          className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-100"
+          className="w-full border border-gray-300 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
         />
       </div>
 
       {/* Mô tả */}
       <div>
-        <label className="flex items-center text-sm font-medium text-gray-700 mb-2">
+        <label className="flex items-center text-sm font-medium text-gray-700 mb-3">
           <FileText size={16} className="mr-2 text-blue-500" />
           Mô tả
         </label>
@@ -54,15 +56,15 @@ export default function EditCampaignForm({ initialData, onSubmit, onCancel }) {
           value={formData.description}
           onChange={handleChange}
           placeholder="Nhập mô tả ngắn gọn..."
-          className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-100"
-          rows={3}
+          className="w-full border border-gray-300 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition resize-none"
+          rows={4}
         />
       </div>
 
       {/* Ngày bắt đầu & Ngày kết thúc */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         <div>
-          <label className="flex items-center text-sm font-medium text-gray-700 mb-2">
+          <label className="flex items-center text-sm font-medium text-gray-700 mb-3">
             <Calendar size={16} className="mr-2 text-blue-500" />
             Ngày bắt đầu
           </label>
@@ -71,11 +73,11 @@ export default function EditCampaignForm({ initialData, onSubmit, onCancel }) {
             name="startDate"
             value={formData.startDate}
             onChange={handleChange}
-            className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-100"
+            className="w-full border border-gray-300 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
           />
         </div>
         <div>
-          <label className="flex items-center text-sm font-medium text-gray-700 mb-2">
+          <label className="flex items-center text-sm font-medium text-gray-700 mb-3">
             <Calendar size={16} className="mr-2 text-blue-500" />
             Ngày kết thúc
           </label>
@@ -84,14 +86,14 @@ export default function EditCampaignForm({ initialData, onSubmit, onCancel }) {
             name="endDate"
             value={formData.endDate}
             onChange={handleChange}
-            className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-100"
+            className="w-full border border-gray-300 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
           />
         </div>
       </div>
 
       {/* Trạng thái */}
       <div>
-        <label className="flex items-center text-sm font-medium text-gray-700 mb-2">
+        <label className="flex items-center text-sm font-medium text-gray-700 mb-3">
           <Flag size={16} className="mr-2 text-blue-500" />
           Trạng thái
         </label>
@@ -99,7 +101,7 @@ export default function EditCampaignForm({ initialData, onSubmit, onCancel }) {
           name="status"
           value={formData.status}
           onChange={handleChange}
-          className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-100"
+          className="w-full border border-gray-300 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition bg-white"
         >
           <option value="Sắp bắt đầu">Sắp bắt đầu</option>
           <option value="Đang hoạt động">Đang hoạt động</option>
@@ -108,18 +110,18 @@ export default function EditCampaignForm({ initialData, onSubmit, onCancel }) {
       </div>
 
       {/* Buttons */}
-      <div className="flex justify-end gap-3 pt-4 border-t mt-4">
+      <div className="flex justify-end gap-3 pt-6 mt-8">
         <button
           type="button"
           onClick={onCancel}
-          className="flex items-center gap-2 px-4 py-2 text-sm bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200"
+          className="flex items-center gap-2 px-6 py-3 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition"
         >
           <X size={16} />
           Hủy
         </button>
         <button
           type="submit"
-          className="flex items-center gap-2 px-4 py-2 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700 shadow-sm"
+          className="flex items-center gap-2 px-6 py-3 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition shadow-sm"
         >
           <Save size={16} />
           Cập nhật
