@@ -1,12 +1,17 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Navbar from "./components/Navbar";
-import Home from "./pages/Home";
-import CampaignManager from "./pages/CampaignManager";
-import Profile from "./pages/Profile";
-import Settings from "./pages/Settings";
-import Footer from "./components/Footer";
-import Preloader from "./components/Preloader";
 import React, { useState, useEffect } from "react";
+
+// Import components and pages using new structure
+import { Navbar, Footer, Preloader } from "./components";
+
+import {
+  Home,
+  CampaignManager,
+  Profile,
+  Settings,
+  WorkspacePage,
+  WorkspaceDetailPage,
+} from "./pages";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -20,9 +25,18 @@ function App() {
       <div className="flex-grow">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/campaignManager" element={<CampaignManager />} />
+          <Route path="/campaign-manager" element={<CampaignManager />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/settings" element={<Settings />} />
+          <Route path="/workspace" element={<WorkspacePage />} />
+          <Route
+            path="/workspace/:workspaceId"
+            element={<WorkspaceDetailPage />}
+          />
+          <Route
+            path="/dashboard/workspaces/:workspaceId"
+            element={<WorkspaceDetailPage />}
+          />
         </Routes>
       </div>
       <Footer />

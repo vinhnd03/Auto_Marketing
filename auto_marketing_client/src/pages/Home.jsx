@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import HeroAnimation from "../components/HeroAnimation";
+import { HeroAnimation } from "../components";
 import { CheckCircleIcon } from "@heroicons/react/24/solid";
 import AOS from "aos";
 import "aos/dist/aos.css";

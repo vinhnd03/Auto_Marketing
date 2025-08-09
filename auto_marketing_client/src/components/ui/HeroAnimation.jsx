@@ -1,6 +1,6 @@
 import React from 'react';
 import { Player } from '@lottiefiles/react-lottie-player';
-import workflowJson from '../animations/marketing-workflow.json'; // hoặc animation bạn chọn
+import workflowJson from '../../animations/marketing-workflow.json'; // hoặc animation bạn chọn
 
 export default function HeroAnimation() {
   return (

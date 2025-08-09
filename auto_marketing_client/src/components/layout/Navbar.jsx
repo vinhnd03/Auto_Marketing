@@ -1,12 +1,12 @@
 import { useState, useRef, useEffect } from "react";
-import { NavLink, Link } from "react-router-dom";
-import { 
-  Bars3Icon, 
-  XMarkIcon, 
-  UserIcon, 
-  Cog6ToothIcon, 
+import { NavLink, Link, useNavigate } from "react-router-dom";
+import {
+  Bars3Icon,
+  XMarkIcon,
+  UserIcon,
+  Cog6ToothIcon,
   ArrowRightOnRectangleIcon,
-  ChevronDownIcon 
+  ChevronDownIcon,
 } from "@heroicons/react/24/solid";
 
 export default function Navbar() {
@@ -14,12 +14,14 @@ export default function Navbar() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false); // Tạm thời để test, sau này sẽ lấy từ context/redux
   const dropdownRef = useRef(null);
+  const navigate = useNavigate();
 
   // Mock user data - sau này sẽ lấy từ context/API
   const user = {
     name: "Nguyễn Văn A",
     email: "nguyen.van.a@email.com",
-    avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face"
+    avatar:
+      "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face",
   };
 
   // Đóng dropdown khi click bên ngoài
@@ -33,9 +35,18 @@ export default function Navbar() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  const handleLogin = () => {
+    setIsLoggedIn(true);
+    setDropdownOpen(false);
+    // Navigate to workspace after login
+    navigate("/workspace");
+  };
+
   const handleLogout = () => {
     setIsLoggedIn(false);
     setDropdownOpen(false);
+    // Navigate back to home after logout
+    navigate("/");
     // Thêm logic logout khác ở đây
   };
 
@@ -44,6 +55,8 @@ export default function Navbar() {
     { path: "/features", label: "Tính năng" },
     { path: "/pricing", label: "Bảng giá" },
     { path: "/contact", label: "Liên hệ" },
+    // Chỉ hiển thị Workspace khi đã đăng nhập
+    ...(isLoggedIn ? [{ path: "/workspace", label: "Workspace" }] : []),
   ];
 
   return (
@@ -93,12 +106,12 @@ export default function Navbar() {
           <div className="flex space-x-6 items-center">
             {/* Button test để chuyển đổi trạng thái đăng nhập - xóa sau này */}
             <button
-              onClick={() => setIsLoggedIn(!isLoggedIn)}
+              onClick={() => (isLoggedIn ? handleLogout() : handleLogin())}
               className="text-xs bg-gray-200 px-2 py-1 rounded"
             >
-              {isLoggedIn ? 'Logout Test' : 'Login Test'}
+              {isLoggedIn ? "Logout Test" : "Login Test"}
             </button>
-            
+
             {isLoggedIn ? (
               /* Avatar và Dropdown Menu */
               <div className="relative" ref={dropdownRef}>
@@ -114,17 +127,23 @@ export default function Navbar() {
                   <span className="text-sm font-medium text-gray-700 hidden sm:block">
                     {user.name}
                   </span>
-                  <ChevronDownIcon className={`w-4 h-4 text-gray-400 transition-transform ${dropdownOpen ? 'rotate-180' : ''}`} />
+                  <ChevronDownIcon
+                    className={`w-4 h-4 text-gray-400 transition-transform ${
+                      dropdownOpen ? "rotate-180" : ""
+                    }`}
+                  />
                 </button>
 
                 {/* Dropdown Menu */}
                 {dropdownOpen && (
                   <div className="absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
                     <div className="px-4 py-3 border-b border-gray-100">
-                      <p className="text-sm font-medium text-gray-900">{user.name}</p>
+                      <p className="text-sm font-medium text-gray-900">
+                        {user.name}
+                      </p>
                       <p className="text-sm text-gray-500">{user.email}</p>
                     </div>
-                    
+
                     <Link
                       to="/profile"
                       onClick={() => setDropdownOpen(false)}
@@ -133,7 +152,7 @@ export default function Navbar() {
                       <UserIcon className="w-4 h-4 mr-3" />
                       Hồ sơ cá nhân
                     </Link>
-                    
+
                     <Link
                       to="/settings"
                       onClick={() => setDropdownOpen(false)}
@@ -142,9 +161,9 @@ export default function Navbar() {
                       <Cog6ToothIcon className="w-4 h-4 mr-3" />
                       Cài đặt
                     </Link>
-                    
+
                     <hr className="my-2" />
-                    
+
                     <button
                       onClick={handleLogout}
                       className="flex items-center w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors"
@@ -209,11 +228,13 @@ export default function Navbar() {
                   className="w-10 h-10 rounded-full object-cover border-2 border-blue-500"
                 />
                 <div>
-                  <p className="text-sm font-medium text-gray-900">{user.name}</p>
+                  <p className="text-sm font-medium text-gray-900">
+                    {user.name}
+                  </p>
                   <p className="text-xs text-gray-500">{user.email}</p>
                 </div>
               </div>
-              
+
               <div className="space-y-2">
                 <Link
                   to="/profile"
@@ -223,7 +244,7 @@ export default function Navbar() {
                   <UserIcon className="w-4 h-4 mr-3" />
                   Hồ sơ cá nhân
                 </Link>
-                
+
                 <Link
                   to="/settings"
                   onClick={() => setMenuOpen(false)}
@@ -232,7 +253,7 @@ export default function Navbar() {
                   <Cog6ToothIcon className="w-4 h-4 mr-3" />
                   Cài đặt
                 </Link>
-                
+
                 <button
                   onClick={() => {
                     handleLogout();

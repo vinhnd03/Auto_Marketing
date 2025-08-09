@@ -11,9 +11,11 @@ import {
 } from "lucide-react";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import CreateCampaignForm from "../components/CreateCampaignForm";
-import DeleteConfirmationModal from "../components/DeleteConfirmationModal";
-import EditCampaignForm from "../components/EditCampaignForm";
+import {
+  CreateCampaignForm,
+  DeleteConfirmationModal,
+  EditCampaignForm,
+} from "../../components";
 export default function CampaignManager() {
   useEffect(() => {
     AOS.init({ duration: 1000, once: true });
@@ -406,13 +408,15 @@ export default function CampaignManager() {
             </button>
           </div>
           {showEditModal && campaignToEdit && (
-            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-              <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-2xl relative">
-                <EditCampaignForm
-                  initialData={campaignToEdit}
-                  onSubmit={handleUpdateCampaign}
-                  onCancel={() => setShowEditModal(false)}
-                />
+            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-4">
+              <div className="bg-white rounded-lg shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+                <div className="p-6">
+                  <EditCampaignForm
+                    initialData={campaignToEdit}
+                    onSubmit={handleUpdateCampaign}
+                    onCancel={() => setShowEditModal(false)}
+                  />
+                </div>
               </div>
             </div>
           )}
